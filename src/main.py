@@ -5,7 +5,7 @@ from src.routers.vehicle_router import vehicle_router
 
 
 app = FastAPI()
-app.title = "wheels_users_ms"
+app.title = "wheelsUN_users_ms"
 app.version = "0.3.3"
 
 app.include_router(tags=["Driver"] ,prefix="/driver", router=driver_router)
