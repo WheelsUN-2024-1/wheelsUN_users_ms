@@ -15,7 +15,6 @@ class UserCreate (BaseModel):
     userCity: str = Field(min_length=3, max_length=50)
     userCountry: str = Field(min_length=3, max_length=50)
     userPostalCode: str = Field(min_length=4,max_length=15)
-    userLicenseExpirationDate: str
 
     @validator('userEmail')
     def validateEmail(cls, email):
@@ -23,13 +22,6 @@ class UserCreate (BaseModel):
             return email
         else:
             raise ValueError(emailErrorMessage)
-        
-    @validator('userLicenseExpirationDate')
-    def validateDate(cls, date):
-        if isValidDate(date):
-            return date
-        else:
-            raise ValueError(dateErrorMessage)
 
 class UserPatch (BaseModel):
     userName: str = Field(None, max_length=50, min_length= 3)
@@ -40,7 +32,6 @@ class UserPatch (BaseModel):
     userCity: str = Field(None, min_length=3, max_length=50)
     userCountry: str = Field(None, min_length=3, max_length=50)
     userPostalCode: str = Field(None, min_length=4,max_length=15)
-    userLicenseExpirationDate: str | None = None
 
     @validator('userEmail')
     def validateEmail(cls, email):
@@ -48,13 +39,6 @@ class UserPatch (BaseModel):
             return email
         else:
             raise ValueError(emailErrorMessage)
-        
-    @validator('userLicenseExpirationDate')
-    def validateDate(cls, date):
-        if isValidDate(date):
-            return date
-        else:
-            raise ValueError(dateErrorMessage)
 
 class UserPut (BaseModel):
     userName: str = Field(min_length=1, max_length=50)
@@ -65,7 +49,6 @@ class UserPut (BaseModel):
     userCity: str = Field(min_length=3, max_length=50)
     userCountry: str = Field(min_length=3, max_length=50)
     userPostalCode: str = Field(min_length=4,max_length=15)
-    userLicenseExpirationDate: str | None = None
 
     @validator('userEmail')
     def validateEmail(cls, email):
@@ -74,6 +57,29 @@ class UserPut (BaseModel):
         else:
             raise ValueError(emailErrorMessage)
         
+class DriverCreate (UserCreate):
+    userLicenseExpirationDate: str
+
+    @validator('userLicenseExpirationDate')
+    def validateDate(cls, date):
+        if isValidDate(date):
+            return date
+        else:
+            raise ValueError(dateErrorMessage)
+
+class DriverPatch (UserPatch):
+    userLicenseExpirationDate: str | None = None
+
+    @validator('userLicenseExpirationDate')
+    def validateDate(cls, date):
+        if isValidDate(date):
+            return date
+        else:
+            raise ValueError(dateErrorMessage)
+        
+class DriverPut (UserPut):
+    userLicenseExpirationDate: str
+
     @validator('userLicenseExpirationDate')
     def validateDate(cls, date):
         if isValidDate(date):

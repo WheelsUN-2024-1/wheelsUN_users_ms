@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Path
-from src.models.user_model import UserCreate, UserPatch, UserPut
+from src.models.user_model import DriverCreate, DriverPatch, DriverPut
 from src.database.firestore_crud import getAll, getByParameter, create, patch, delete
 
 driver_router = APIRouter()
@@ -22,7 +22,7 @@ async def getDriverById(id:int):
     return "DRIVER_NOT_FOUND"
 
 @driver_router.post("/")
-async def createDriver(user: UserCreate):
+async def createDriver(user: DriverCreate):
     docs = getByParameter(driversCollection, "userIdNumber", user.userIdNumber)
     for doc in docs: #this verifies if there is a Driver
         return "ALREADY_DRIVER"
@@ -30,12 +30,12 @@ async def createDriver(user: UserCreate):
     return await getDriverById(user.userIdNumber)
 
 @driver_router.patch("/{id}")
-async def patchDriver(id: int, user: UserPatch):
+async def patchDriver(id: int, user: DriverPatch):
     patch(driversCollection, "userIdNumber", id, user)
     return await getDriverById(id)
 
 @driver_router.put("/{id}")
-async def patchDriver(id: int, user: UserPut):
+async def patchDriver(id: int, user: DriverPut):
     patch(driversCollection, "userIdNumber", id, user)
     return await getDriverById(id)
 
