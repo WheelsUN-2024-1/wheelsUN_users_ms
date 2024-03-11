@@ -4,7 +4,7 @@ from src.database.firestore_crud import getAll, getByParameter, create, patch, d
 
 driver_router = APIRouter()
 
-driversCollection = "driversCollection"
+driversCollection = "driverCollection"
 
 @driver_router.get("/")
 async def getDrivers():
