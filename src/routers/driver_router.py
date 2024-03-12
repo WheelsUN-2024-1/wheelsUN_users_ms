@@ -35,7 +35,7 @@ async def patchDriver(id: int, user: DriverPatch):
     return await getDriverById(id)
 
 @driver_router.put("/{id}")
-async def patchDriver(id: int, user: DriverPut):
+async def putDriver(id: int, user: DriverPut):
     patch(driversCollection, "userIdNumber", id, user)
     return await getDriverById(id)
 
